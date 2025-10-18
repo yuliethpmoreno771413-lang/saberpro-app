@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Gestión Saber Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f6fc; font-family: 'Segoe UI', sans-serif; }
+        .navbar { background-color: #2d3e8b; }
+        .navbar-brand { color: white !important; font-weight: bold; }
+        .container { margin-top: 80px; text-align: center; }
+        .card {
+            border: none; border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .card:hover { transform: scale(1.05); }
+        .btn-custom {
+            background-color: #4b6be6; color: white; border-radius: 10px;
+        }
+        .btn-custom:hover { background-color: #2d3e8b; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">🧠 SaberPro - Panel de Gestión</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h2 class="mb-4">Panel de Gestión Saber Pro</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <div class="card p-4">
+                <h5>👩‍💼 Coordinadores</h5>
+                <a href="/coordinadores" class="btn btn-custom mt-3">Ver Información</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-4">
+                <h5>🎓 Estudiantes</h5>
+                <a href="/estudiantes" class="btn btn-custom mt-3">Administrar</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-4">
+                <h5>📊 Calificaciones</h5>
+                <a href="/resultados" class="btn btn-custom mt-3">Ver Resultados</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <p>Total Estudiantes: <strong th:text="${totalEstudiantes}">0</strong></p>
+        <p>Total Resultados: <strong th:text="${totalResultados}">0</strong></p>
+    </div>
+</div>
+
+</body>
+</html>

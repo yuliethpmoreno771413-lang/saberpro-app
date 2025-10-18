@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Resultado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+    <h3 class="text-primary mb-3">Registrar Resultado</h3>
+    <form th:action="@{/resultados/guardar}" th:object="${resultado}" method="post" class="card p-4 shadow-sm">
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Número de Registro</label>
+                <input type="text" th:field="*{numeroRegistro}" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label>Seleccionar Estudiante</label>
+                <select th:field="*{estudianteId}" class="form-select" required>
+                    <option value="">Seleccione...</option>
+                    <option th:each="e : ${estudiantes}" th:value="${e.id}"
+                            th:text="${e.primerNombre + ' ' + e.primerApellido + ' (' + e.programa + ')'}"></option>
+                </select>
+            </div>
+        </div>
+
+        <h5 class="text-secondary mt-3">Materias y Puntajes</h5>
+        <table class="table table-bordered mt-2">
+            <thead class="table-primary">
+            <tr>
+                <th>Materia</th>
+                <th>Puntaje</th>
+                <th>Nivel</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="m, i : *{materias}">
+                <td><input type="text" th:field="*{materias[__${i.index}__].nombre}" class="form-control" readonly></td>
+                <td><input type="number" th:field="*{materias[__${i.index}__].puntaje}" min="0" max="300" class="form-control"></td>
+                <td><input type="number" th:field="*{materias[__${i.index}__].nivel}" min="0" max="4" class="form-control"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success px-4">Guardar Resultado</button>
+            <a href="/resultados" class="btn btn-secondary px-4">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
+
