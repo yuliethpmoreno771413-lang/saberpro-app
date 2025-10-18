@@ -1,28 +1,28 @@
-# Usa una imagen base de Java 17
-FROM openjdk:17-jdk-slim
+# Usa una imagen oficial de Java 21
+FROM openjdk:21-jdk-slim
 
-# Establece el directorio de trabajo
+# Crea la carpeta de trabajo
 WORKDIR /app
 
-# Copia los archivos de Maven Wrapper
+# Copia los archivos necesarios para descargar dependencias
 COPY mvnw .
 COPY .mvn .mvn
+COPY pom.xml .
 
-# 🔹 Da permisos de ejecución al archivo mvnw
+# Da permisos de ejecución al mvnw
 RUN chmod +x mvnw
 
-# Descarga las dependencias necesarias
+# Descarga dependencias sin compilar todo
 RUN ./mvnw dependency:go-offline -B
 
 # Copia el resto del proyecto
 COPY . .
 
-# Compila el proyecto
-RUN ./mvnw package -DskipTests
+# Empaqueta la aplicación (sin correr tests)
+RUN ./mvnw clean package -DskipTests
 
-# Expone el puerto en el que corre tu aplicación
+# Expone el puerto
 EXPOSE 8080
 
-# Ejecuta el archivo .jar generado
+# Ejecuta el jar (ajusta el nombre si tu .jar se llama distinto)
 CMD ["java", "-jar", "target/saberpro-0.0.1-SNAPSHOT.jar"]
-
